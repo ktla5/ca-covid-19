@@ -577,7 +577,7 @@
           var	yCases = y;
           // Define the cum case axes
           var	xCaseAxis = d3.svg.axis().scale(xCases)
-          	.orient("bottom").ticks(2).tickSize(8, 0).tickFormat(d3.time.format("%b"));
+          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
           	//.orient("bottom").tickValues([xMin,xMax]).tickSize(8, 0).tickFormat(d3.time.format("%b%d"));
           var	yCaseAxis = d3.svg.axis().scale(yCases)
           	.orient("left").ticks(5);
@@ -598,7 +598,7 @@
           var	yNewCases = y;
           // Define the new casesaxes
           var	xNewCaseAxis = d3.svg.axis().scale(xNewCases)
-          	.orient("bottom").ticks(2).tickSize(8, 0).tickFormat(d3.time.format("%b"));
+          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
           	//.orient("bottom").tickValues(d3.extent(case_data, function(d) { return d.date; })).tickSize(8, 0).tickFormat(d3.time.format("%b%d"));
           var	yNewCaseAxis = d3.svg.axis().scale(yNewCases)
           	.orient("left").ticks(5);
@@ -622,7 +622,7 @@
           var	yDeaths = y;
           // Define the axes
           var	xDeathAxis = d3.svg.axis().scale(xDeaths)
-          	.orient("bottom").ticks(2).tickSize(8, 0).tickFormat(d3.time.format("%b"));
+          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
           var	yDeathAxis = d3.svg.axis().scale(yDeaths)
           	.orient("left").ticks(5);
           // Adds the svg
@@ -642,7 +642,7 @@
           var	yNewDeaths = y;
           // Define the new casesaxes
           var	xNewDeathAxis = d3.svg.axis().scale(xNewDeaths)
-          	.orient("bottom").ticks(2).tickSize(8, 0).tickFormat(d3.time.format("%b"));
+          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
           	//.orient("bottom").tickSize(8, 0).tickFormat(d3.time.format("%b%d"));
           var	yNewDeathAxis = d3.svg.axis().scale(yNewDeaths)
           	.orient("left").ticks(5);
@@ -654,9 +654,9 @@
           		.attr("height", height + margin.top + margin.bottom)
           	.append("g")
           		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-          //var avgDeathValueline = d3.svg.line()
-          //  .x(function(d) { return xDeaths(d.date); })
-          //  .y(function(d) { return yDeaths(parseFloat(d.avg_deaths)); });
+          var avgDeathValueline = d3.svg.line()
+            .x(function(d) { return xDeaths(d.date); })
+            .y(function(d) { return yDeaths(parseFloat(d.avg_deaths)); });
         
 
           function updateCharts(caseDateLookup,region_name,pop) {
@@ -765,10 +765,10 @@
                 .attr("y", function(d) { return yNewCases(d.new_deaths); })
                 .attr("height", function(d){return height - yNewCases(d.new_deaths)});
             // change the line
-            //svgNewDeaths.select(".line")
-            //  .transition()
-            //  .duration(750)
-            //  .attr("d", avgDeathValueline(caseDateLookup));
+            svgNewDeaths.select(".line")
+              .transition()
+              .duration(750)
+              .attr("d", avgDeathValueline(caseDateLookup));
             // change the x axis
             svgNewDeaths.select(".x.axis")
               .transition()
@@ -811,7 +811,7 @@
           	svgCases.append("path")
           	  .datum(caseDateLookup)
           		.attr("class", "line")
-          		.attr("stroke", "#8C8C8C")
+          		.attr("stroke", "#112aed")
           		.attr("stroke-width", 2)
           		.attr("fill", "None")
           		.attr("d", caseValueline(caseDateLookup));
@@ -891,6 +891,13 @@
                 .attr("width",5)
                 .attr("y", function(d) { return yNewCases(d.new_deaths); })
                 .attr("height", function(d){return height - yNewCases(d.new_deaths)});
+            // Add trend line
+            svgNewDeaths.append("path")
+              .attr("class", "line")
+              .attr("stroke", "#112aed")
+              .attr("stroke-width", 2)
+              .attr("fill", "None")
+              .attr("d", avgDeathValueline(caseDateLookup));
             // Add x axis
             svgNewDeaths.append("g")
           		.attr("class", "x axis")
@@ -972,23 +979,5 @@
       });
 
     </script>
-    <!-- Google Analytics -->
-    <!-- <script>
-      if(includeGA == false){
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('send', 'pageview');
-      }else{
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', ga_id, 'auto');
-        ga('send', 'pageview');
-      }
-    </script> -->
-  <!-- End Google Analytics -->
   </body>
 </html>
