@@ -563,7 +563,8 @@
           var elWidth = document.getElementById("cum-case-chart").offsetWidth;
 
           // Set the dimensions of the canvas / graph
-          var	margin = {top: 30, right: 20, bottom: 30, left: 50};
+          //var	margin = {top: 30, right: 20, bottom: 30, left: 50};
+          var margin = {top: 30, right: 20, bottom: 40, left: 50};
           var width = elWidth - margin.left - margin.right;
           var height = 270 - margin.top - margin.bottom;
           
@@ -574,11 +575,21 @@
           
           // Set the case ranges
           var	xCases = x;
+          //var x = d3.time.scale()
+          //  .range([10, width - 15]);
+          //var x2 = d3.scale.ordinal().rangePoints([0, width ], .25)
           var	yCases = y;
+
           // Define the cum case axes
           var	xCaseAxis = d3.svg.axis().scale(xCases)
-          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
+          	//.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
+            .orient("bottom").tickSize(7, 0).tickFormat(d3.time.format("%b %Y"));
           	//.orient("bottom").tickValues([xMin,xMax]).tickSize(8, 0).tickFormat(d3.time.format("%b%d"));
+          //var xAxis = d3.svg.axis().scale(x2)
+          //  .orient("bottom")
+          //  .tickFormat(d3.time.format("%b %d"))
+          //  .ticks(4)
+          //  .tickPadding(2);
           var	yCaseAxis = d3.svg.axis().scale(yCases)
           	.orient("left").ticks(5);
           // Adds the cum cases svg
@@ -598,8 +609,9 @@
           var	yNewCases = y;
           // Define the new casesaxes
           var	xNewCaseAxis = d3.svg.axis().scale(xNewCases)
-          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
-          	//.orient("bottom").tickValues(d3.extent(case_data, function(d) { return d.date; })).tickSize(8, 0).tickFormat(d3.time.format("%b%d"));
+          	//.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
+          	//.orient("bottom").tickValues(d3.extent(case_data, function(d) { return d.date; })).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
+            .orient("bottom").tickSize(7, 0).tickFormat(d3.time.format("%b %Y"));
           var	yNewCaseAxis = d3.svg.axis().scale(yNewCases)
           	.orient("left").ticks(5);
           // Adds the new cases svg
@@ -622,7 +634,8 @@
           var	yDeaths = y;
           // Define the axes
           var	xDeathAxis = d3.svg.axis().scale(xDeaths)
-          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
+          	//.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
+            .orient("bottom").tickSize(7, 0).tickFormat(d3.time.format("%b %Y"));
           var	yDeathAxis = d3.svg.axis().scale(yDeaths)
           	.orient("left").ticks(5);
           // Adds the svg
@@ -638,12 +651,13 @@
             .y(function(d) { return yDeaths(parseFloat(d.deaths)); });
           
           // Set the newcase ranges
-          var	xNewDeaths = x;//d3.scale.ordinal().rangeRoundBands([0, width], .05);
+          //var	xNewDeaths = x;//d3.scale.ordinal().rangeRoundBands([0, width], .05);
+          var xNewDeaths = d3.time.scale().range([0, width], .05);
           var	yNewDeaths = y;
           // Define the new casesaxes
           var	xNewDeathAxis = d3.svg.axis().scale(xNewDeaths)
-          	.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
-          	//.orient("bottom").tickSize(8, 0).tickFormat(d3.time.format("%b%d"));
+          	//.orient("bottom").ticks(5).tickSize(8, 0).tickFormat(d3.time.format("%b %Y"));
+          	.orient("bottom").tickSize(7, 0).tickFormat(d3.time.format("%b %Y"));
           var	yNewDeathAxis = d3.svg.axis().scale(yNewDeaths)
           	.orient("left").ticks(5);
           // Adds the new cases svg
@@ -676,7 +690,8 @@
             /////////////////// CASES //////////////////////
             
             // Update the x and y-axis domain to match data
-            xCases.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            //xCases.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            xCases.domain([d3.min(caseDateLookup, function(d) { return d.date; }), d3.max(caseDateLookup, function(d) { return d.date; })]);
             yCases.domain([0, d3.max(caseDateLookup, function(d) {return d.cases;})]);
                         
             // change the line
@@ -688,7 +703,12 @@
             svgCases.select(".x.axis")
               .transition()
               .duration(750)
-              .call(xCaseAxis);
+              .call(xCaseAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
             // change the y axis
             svgCases.select(".y.axis")
               .transition()
@@ -696,7 +716,8 @@
               .call(yCaseAxis);
               
             // Update the y-axis domain to match data
-            xNewCases.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            //xNewCases.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            xNewCases.domain([d3.min(caseDateLookup, function(d) { return d.date; }), d3.max(caseDateLookup, function(d) { return d.date; })]);
             yNewCases.domain([0, d3.max(caseDateLookup, function(d) {return d.new_cases;})]);
             // Remove old bars
             var barCage = svgNewCases.select('#new-case-bars');
@@ -709,7 +730,8 @@
               .append("rect")
                 .style("fill","#BFBFBF")
                 .attr("x", function(d) { return xNewCases(d.date); })
-                .attr("width",5)
+                .attr("width", 2)
+                //.attr("width", x.bandwidth())
                 .attr("y", function(d) { return yNewCases(d.new_cases); })
                 .attr("height", function(d){return height - yNewCases(d.new_cases)});
             // change the line
@@ -721,7 +743,12 @@
             svgNewCases.select(".x.axis")
               .transition()
               .duration(750)
-              .call(xNewCaseAxis);
+              .call(xNewCaseAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
             // change the y axis
             svgNewCases.select(".y.axis")
               .transition()
@@ -731,7 +758,8 @@
             /////////////////// DEATHS //////////////////////
             
             // Update the x and y-axis domain to match data
-            xDeaths.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            //xDeaths.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            xDeaths.domain([d3.min(caseDateLookup, function(d) { return d.date; }), d3.max(caseDateLookup, function(d) { return d.date; })]);
             yDeaths.domain([0, d3.max(caseDateLookup, function(d) {return d.deaths;})]);
             // change the line
             svgDeaths.select(".line")
@@ -742,7 +770,12 @@
             svgDeaths.select(".x.axis")
               .transition()
               .duration(750)
-              .call(xDeathAxis);
+              .call(xDeathAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
             // change the y axis
             svgDeaths.select(".y.axis")
               .transition()
@@ -750,7 +783,9 @@
               .call(yDeathAxis);
               
             // Update the y-axis domain to match data
-            xNewDeaths.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            //xNewDeaths.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            xNewDeaths.domain([d3.min(caseDateLookup, function(d) { return d.date; }), d3.max(caseDateLookup, function(d) { return d.date; })]);
+            //xNewDeaths.domain(caseDateLookup.map(function(d) { return d.date; }));
             yNewDeaths.domain([0, d3.max(caseDateLookup, function(d) {return d.new_deaths;})]);
             // Remove old bars
             svgNewDeaths.selectAll("rect")
@@ -761,7 +796,7 @@
     				  .enter().append("rect")
                 .style("fill","#eb631e")
                 .attr("x", function(d) { return xNewCases(d.date); })
-                .attr("width",5)
+                .attr("width", 2)
                 .attr("y", function(d) { return yNewCases(d.new_deaths); })
                 .attr("height", function(d){return height - yNewCases(d.new_deaths)});
             // change the line
@@ -773,7 +808,12 @@
             svgNewDeaths.select(".x.axis")
               .transition()
               .duration(750)
-              .call(xNewDeathAxis);
+              .call(xNewDeathAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
             // change the y axis
             svgNewDeaths.select(".y.axis")
               .transition()
@@ -819,7 +859,16 @@
           	svgCases.append("g")
           		.attr("class", "x axis")
           		.attr("transform", "translate(0," + height + ")")
-          		.call(xCaseAxis);
+          		.call(xCaseAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
+              //.selectAll("text")
+              //  .attr("transform", "translate(-10,0)rotate(-45)")
+              //  .style("text-anchor", "end");
+
           	// Add the y Axis
           	svgCases.append("g")
           		.attr("class", "y axis")
@@ -836,7 +885,7 @@
               .append("rect")
                 .style("fill","#BFBFBF")
                 .attr("x", function(d) { return xNewCases(d.date); })
-                .attr("width",5)
+                .attr("width",2)
                 .attr("y", function(d) { return yNewCases(d.new_cases); })
                 .attr("height", function(d){return height - yNewCases(d.new_cases)});
             // Add trend line
@@ -850,7 +899,12 @@
             svgNewCases.append("g")
           		.attr("class", "x axis")
           		.attr("transform", "translate(0," + height + ")")
-          		.call(xNewCaseAxis);
+          		.call(xNewCaseAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
           	// Add the y Axis
           	svgNewCases.append("g")
           		.attr("class", "y axis")
@@ -873,14 +927,20 @@
           	svgDeaths.append("g")
           		.attr("class", "x axis")
           		.attr("transform", "translate(0," + height + ")")
-          		.call(xDeathAxis);
+          		.call(xDeathAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
           	// Add the y Axis
           	svgDeaths.append("g")
           		.attr("class", "y axis")
           		.call(yDeathAxis);
           		
             // Scale the range of the data
-          	xNewDeaths.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+          	//xNewDeaths.domain(d3.extent(caseDateLookup, function(d) { return d.date; }));
+            xNewDeaths.domain([d3.min(caseDateLookup, function(d) { return d.date; }), d3.max(caseDateLookup, function(d) { return d.date; })]);
           	yNewDeaths.domain([0, d3.max(caseDateLookup, function(d) {return d.new_deaths;})]);
           	// Add bars
             svgNewDeaths.selectAll("rect")
@@ -888,7 +948,7 @@
               .enter().append("rect")
                 .style("fill","#eb631e")
                 .attr("x", function(d) { return xNewCases(d.date); })
-                .attr("width",5)
+                .attr("width",2)
                 .attr("y", function(d) { return yNewCases(d.new_deaths); })
                 .attr("height", function(d){return height - yNewCases(d.new_deaths)});
             // Add trend line
@@ -902,7 +962,12 @@
             svgNewDeaths.append("g")
           		.attr("class", "x axis")
           		.attr("transform", "translate(0," + height + ")")
-          		.call(xNewDeathAxis);
+          		.call(xNewDeathAxis)
+              .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-45)");
           	// Add the y Axis
           	svgNewDeaths.append("g")
           		.attr("class", "y axis")
