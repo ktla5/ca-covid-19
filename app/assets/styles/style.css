@@ -25,13 +25,15 @@
 }
 
 #main-container{
-  max-width:1200px;
+  /* max-width:1200px; */
+  max-width:90%;
   margin:0 auto;
   padding:20px;
 }
 
 #container-top {
-  max-width:850px;
+  /*max-width:850px;*/
+  max-width:90%;
   margin:0 auto;
 }
 
