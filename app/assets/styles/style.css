@@ -215,9 +215,9 @@ h3{
 }
 
 #data-notes{
-  background:#faf2de;
-  padding:2em;
-  font-size: 1.5rem;
+  /*background:#faf2de; */
+  padding:0.5em;
+  font-size: 0.65rem;
   font-style: italic;
 }
 
