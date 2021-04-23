@@ -26,13 +26,13 @@
 
 #main-container{
   /* max-width:1200px; */
-  max-width:90%;
+  max-width: 90%;
   margin:0 auto;
-  padding:20px;
+  padding:10px;
 }
 
 #container-top {
-  /*max-width:850px;*/
+  /* max-width:850px; */
   max-width:90%;
   margin:0 auto;
 }
@@ -43,7 +43,8 @@
   color:#ffffff;
   text-align: center;
   font-weight: bold;
-  padding:30px;
+  padding:9px;
+  font-size: 45%;
 }
 
 h1{
@@ -51,7 +52,6 @@ h1{
 }
 
 .row{
-  /*max-width:950px;*/
   max-width:100%;
   margin:0 auto;
 }
@@ -215,7 +215,7 @@ h3{
 }
 
 #data-notes{
-  background:#ebebeb;
+  background:#faf2de;
   padding:2em;
   font-size: 1.5rem;
   font-style: italic;
