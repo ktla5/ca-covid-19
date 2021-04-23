@@ -44,7 +44,7 @@
       <div id="container-top" class="row">
         <div id="banner"></div>
         <div class="lead" id="intro">
-          <p>This dashboard provides a localized look at COVID-19-related cases and deaths in your county.</p>
+          <p>This dashboard provides a localized look at COVID-19-related cases and deaths in California’s 58 counties.</p>
           <div class='cta' id="update-date"></div>
         </div>
         
@@ -208,6 +208,7 @@
           formatDecimal = d3.format(".1f"),
           formatNoDecimal = d3.format(".0f"),
           formatDecimalComma = d3.format(",.2f"),
+          formatNoDecimalComma = d3.format(",.0f")  
           formatSuffix = d3.format("s"),
           formatSuffixDecimal1 = d3.format(".1s"),
           formatSuffixDecimal2 = d3.format(".2s"),
@@ -447,7 +448,7 @@
           var perCapita = (totalCases/pop)*100000//per capital per 100,000
           var totalCaseText = 'There have been <strong>'+ formatComma(totalCases) +' cases</strong> of COVID-19 in '+
                               region_name +'. The population of this region is '+ formatComma(pop) + '. That&#39;s '+
-                               formatNoDecimal(perCapita) + ' cases per 100,000 people.';
+                               formatNoDecimalComma(perCapita) + ' cases per 100,000 people.';
         }
         var casesText = d3.select('#cum-case-text')
             .html('<h2>Total cases</h2>')
@@ -456,15 +457,15 @@
         
         //New case text   
         if((mostRecentRecord.length == 0)|| isNaN(mostRecentRecord[0]['new_cases']) ){
-          var newCaseText = 'There were <strong>no newly reported cases</strong> of COVID-19 on '+maxDateStr+' in '+
+          var newCaseText = 'There were <strong>no newly reported cases</strong> of COVID-19 on '+maxDateStr+', in '+
                             region_name +'.';
         }else{
           var newCases = mostRecentRecord[0]['new_cases'];
           var avgNewCases = formatNoDecimal(mostRecentRecord[0]['avg_cases']);
           var newCaseText = 'There were <strong>'+ formatComma(newCases) +' newly reported cases</strong> of COVID-19 on '+
-                              maxDateStr+' in '+region_name +'. Over time, new cases indicate how fast the virus'+
+                              maxDateStr+', in '+region_name +'. Over time, new cases indicate how fast the virus'+
                               ' is spreading in a community.<div class="avg-cases"><span class="avg-trend">'+
-                              'Seven-day average: '+formatComma(avgNewCases)+' newly reported cases.</span></div>';
+                              '7-day average: '+formatComma(avgNewCases)+' newly reported cases</span></div>';
         }
         var newCasesText = d3.select('#new-case-text')
             .html('<h2>Newly reported cases</h2>')
@@ -491,12 +492,12 @@
         //New deaths
         if((mostRecentRecord.length == 0) || isNaN(mostRecentRecord[0]['new_deaths'])){  
           var newDeathText = 'There were <strong>no new deaths</strong> related to COVID-19 reported on '+maxDateStr+
-                                ' in '+region_name + '.';
+                                ', in '+region_name + '.';
         }else{
           var newDeaths = mostRecentRecord[0]['new_deaths'];
           // Add text to death text block
           var newDeathText = 'There were <strong>'+ formatComma(newDeaths) +
-                              ' new deaths</strong> related to COVID-19 reported on '+maxDateStr+' in '+ region_name + '.';
+                              ' new deaths</strong> related to COVID-19 reported on '+maxDateStr+', in '+ region_name + '.';
         }
         var newDeathText = d3.select('#new-death-text')
             .html('<h2>Newly reported deaths</h2>')
@@ -1044,5 +1045,23 @@
       });
 
     </script>
+    <!-- Google Analytics -->
+    <!-- <script>
+      if(includeGA == false){
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('send', 'pageview');
+      }else{
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', ga_id, 'auto');
+        ga('send', 'pageview');
+      }
+    </script> -->
+  <!-- End Google Analytics -->
   </body>
 </html>
