@@ -1,0 +1,218 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Tracking the Coronavirus in Orange County</title>
+        <link rel="shortcut icon" type="image/png" href="./assets/img/favicon.png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+        <link rel="stylesheet" href="vendors/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+        <link href='./public/css/cvoc.min.css' rel='stylesheet' />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+
+    </head>
+    <body>
+         <nav hidden id="header" class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top" role="tablist">
+            <a class="navbar-brand" href="index.html"><img src="./assets/img/OCCC-logo-transp.png" width="100%" alt="OCCC-logo"></a>
+            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="#"></a>
+                </div>
+            </div>-->
+        </nav> 
+      <!--  <section id="head" class="py-5">
+            <div class="container py-5">
+                <div class="row text-center">
+                    <div class="col">
+                        <h1 class="mt-5">Tracking the coronavirus in Orange County</h1>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <div id="cvoc-ie" class="bg-danger text-white py-3">
+            <div class="container py-5 text-center">
+                <div class="row">
+                    <div class="col">
+                        <b><i class="fas fa-exclamation-triangle"></i> Internet Explorer browser is not supported.  Please use Chrome, Safari, Edge, or Firefix.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="cvoc-main">
+            <div class="container py-5 mb-5">
+                <div class="row text-center">
+                    <div class="col">
+                        <h5 hidden class="headline">Coronavirus 14-day trends are <strong id="trend"></strong> in <span id="city"></span></h5> 
+                        <div class="row justify-content-md-center">
+                            <div class="col col-lg-8 col-md-9">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">Select a city/community: </label>
+                                    </div>
+                                    <select class="custom-select" id="chart_city_select">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="col col-lg-4 col-md-8 col-sm-12">
+                                <div class="btn-group btn-block mb-3">
+                                    <button id='total-cases' type="button" class="btn btn-responsive btn-info active"><i class="fas fa-chart-bar"></i> Total Cases</button>
+                                    <button id='daily-cases' type="button" class="btn btn-responsive btn-info"><i class="fas fa-chart-line"></i> Daily Cases</button>
+                                </div>
+                            </div>                             
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <canvas id="chart_totals"></canvas>
+                        <div class="row justify-content-center">
+                            <div class="col-10">
+                                <div id="sliderMain"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center justify-content-md-center">
+                    <div class="col">
+                        <small hidden class="text-muted">* The "other" category includes the aggregate of the unincorporated areas of the county, and cities that have both a population <25,000 and <5 cases.</small><br>
+                        <small class="text-muted">** More information may become available as individual case investigations are completed.</small>
+                    </div>
+                </div>
+            </div>
+            <div id="oc-map" class="container py-5 mb-5">
+                <div class="row text-center">
+                    <div class="col">
+                        <h4 class="my-4">Coronavirus cases by city and community</h4>
+                        <div class="row justify-content-md-center">
+                            <div class="col col-lg-6 col-md-9">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">Display by: </label>
+                                    </div>
+                                    <select class="custom-select" id="map-select">
+                                        <option value="Total Cases" selected>Total cases</option>
+                                        <option value="Cases Per 100,000 People">Cases per 100,000 residents</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9 pb-2">
+                        <div id="cvoc-map"></div>
+                    </div>
+                    <div class="col-md-3 pb-2">
+                        <div id="cvoc-map-sidebar"></div>
+                    </div>
+                </div>
+            </div>
+            <div hidden class="container py-5 mb-5">
+                <div class="row text-center">
+                    <div class="col">
+                        <h2 class="my-4">Which areas have the biggest rise in cases?</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-deck">
+                            <div class="card mb-4">
+                                <div class="card-header"><h5 class="card-title mb-0">#1 <span id="firstCity"></span></h5></div>
+                                <div class="card-body">
+                                    <h5><b><i class="far fa-arrow-alt-circle-up text-danger"></i> <span id="firstNew"></span>%</b> <small class="text-muted"><i>over last 3 days</i></small></h5>
+                                    <p class="card-text mb-0"><b id="firstTotal"></b> total cases</p>
+                                    <p class="card-text mb-0"><b id="firstNormal"></b> cases per 100,000 residents</p>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-header"><h5 class="card-title mb-0">#2 <span id="secondCity"></span></h5></div>
+                                <div class="card-body">
+                                    <h5><b><i class="far fa-arrow-alt-circle-up text-danger"></i> <span id="secondNew"></span>%</b> <small class="text-muted"><i>over last 3 days</i></small></h5>
+                                    <p class="card-text mb-0"><b id="secondTotal"></b> total cases</p>
+                                    <p class="card-text mb-0"><b id="secondNormal"></b> cases per 100,000 residents</p>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-header"><h5 class="card-title mb-0">#3 <span id="thirdCity"></span></h5></div>
+                                <div class="card-body">
+                                    <h5><b><i class="far fa-arrow-alt-circle-up text-danger"></i> <span id="thirdNew"></span>%</b> <small class="text-muted"><i>over last 3 days</i></small></h5>
+                                    <p class="card-text mb-0"><b id="thirdTotal"></b> total cases</p>
+                                    <p class="card-text mb-0"><b id="thirdNormal"></b> cases per 100,000 residents</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col">
+                        <div class="card-deck">
+                            <div class="card mb-4">
+                                <div class="card-header"><h5 class="card-title mb-0">#4 <span id="fourthCity"></span></h5></div>
+                                <div class="card-body">
+                                    <h5><b><i class="far fa-arrow-alt-circle-up text-danger"></i> <span id="fourthNew"></span>%</b> <small class="text-muted"><i>over last 3 days</i></small></h5>
+                                    <p class="card-text mb-0"><b id="fourthTotal"></b> total cases</p>
+                                    <p class="card-text mb-0"><b id="fourthNormal"></b> cases per 100,000 residents</p>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-header"><h5 class="card-title mb-0">#5 <span id="fifthCity"></span></h5></div>
+                                <div class="card-body">
+                                    <h5><b><i class="far fa-arrow-alt-circle-up text-danger"></i> <span id="fifthNew"></span>%</b> <small class="text-muted"><i>over last 3 days</i></small></h5>
+                                    <p class="card-text mb-0"><b id="fifthTotal"></b> total cases</p>
+                                    <p class="card-text mb-0"><b id="fifthNormal"></b> cases per 100,000 residents</p>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-header"><h5 class="card-title mb-0">#6 <span id="sixthCity"></span></h5></div>
+                                <div class="card-body">
+                                    <h5><b><i class="far fa-arrow-alt-circle-up text-danger"></i> <span id="sixthNew"></span>%</b> <small class="text-muted"><i>over last 3 days</i></small></h5>
+                                    <p class="card-text mb-0"><b id="sixthTotal"></b> total cases</p>
+                                    <p class="card-text mb-0"><b id="sixthNormal"></b> cases per 100,000 residents</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container py-5 mb-5">
+                <div class="row text-center">
+                    <div class="col">
+                        <h4 class="my-4">Daily coronavirus hospitalizations</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <canvas id="chart_daily"></canvas>
+                        <div class="row justify-content-center">
+                            <div class="col-10">
+                                <div id="sliderHospital"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center justify-content-md-center">
+                    <div class="col">
+                        <small hidden class="text-muted">Note, hospital and ICU numbers were not available before March 31.</small>
+                    </div>
+                </div>
+            </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="./vendors/fontawesome-free/js/all.min.js"></script>
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="./vendors/nouislider/nouislider.min.js"></script>
+        <script src='./public/js/main.js'></script>
+    </body>
+</html>

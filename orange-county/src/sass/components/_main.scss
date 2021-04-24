@@ -1,0 +1,17 @@
+/* change all .btn */
+@media (max-width: 768px) {
+    .btn-group-lg>.btn, .btn-responsive {
+      padding:10px;
+      font-size:50%;
+    }
+}
+
+/* IE Warning */
+#cvoc-ie {
+  display: none;
+}
+
+/* noUiSlider */
+.noUi-connect {
+    background: #d2d2d2;
+}
