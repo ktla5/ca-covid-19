@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+
+  <title>Getting data without (much) coding</title>
+  <link rel="stylesheet" href="css/main.css" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Lato&family=Noto+Serif:wght@700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+
+<div id="container" class="exercise">
+
+  <div id="exercise">
+    <h3><a href="index.html">Datawrapper Tutorial</a></h3>
+    
+    <div id="intro">
+      <h1>Getting data without (much) coding</h1>
+      <p>We'll learn some pretty neat tricks to grab data from websites using Google Sheets, without needing to write any code. You'll be able to link your Google spreadsheet to make live-updating charts on Datawrapper.</p>
+      <h2>Tools you'll need</h2>
+      <div class="list">
+        <p class="subhed"><a target="_blank" href="https://www.google.com/chrome/browser/desktop/index.html">Google Chrome &raquo;</a></p><p> Firefox and Safari are OK, but the following examples and tools will be in Chrome.  </p>
+        <p class="subhed"><a target="_blank" href="https://www.google.com/sheets/about/">Google Spreadsheets &raquo;</a></p>
+        <p>You'll be able to extract specific information from a website and show it in your Google spreadsheet using some of Sheets’ special functions.</p>
+      </div>
+      <h4>The functions you can use for web scraping with Google Sheets are:</h4>
+      <ul>
+        <li>
+          <div>ImportHTML</div> <br>
+          <div>ImportXML</div> <br>
+          <div>ImportFEED</div> <br>
+          <div>ImportDATA</div>
+        </li>
+      </ul>
+    </div>
+
+    <div id="import-html">
+      <h2>Using the IMPORTHTML function in Google Sheets</h2>
+      <p> Functions do things. This one imports data from a table or list within an HTML page. We can use this function to write a scraper that imports a table of COVID-19 cases and deaths by city/community in L.A. County.</p>
+
+      <p>Here's an example: <code> =IMPORTHTML("http://publichealth.lacounty.gov/media/Coronavirus/locations.htm", "table", 3)</code></p>
+
+      <ul>
+        <li>Functions are always followed by parentheses, and normally those parentheses include the ingredients for the recipe. Those ingredients are called 'arguments' or 'parameters'.</li>
+        <li>Different functions require different numbers of arguments. IMPORTHTML needs 3 arguments: “url”, “query”, index
+            <ol>
+              <li>The first ingredient is the URL of the page you want to scrape - in quotation marks. The quotation marks are important: if you don't use quotation marks the spreadsheet software will assume you are naming another function.</li>
+              <li>The second ingredient, the query, is what you want to scrape from that page. There are only two options here: "table" or "list". The first looks for the <code>table</code> tag; the second looks for the <code>ul</code> or <code>ol</code> tag (unordered list or ordered list). Again this must be in quotation marks.</li>
+              <li>The third ingredient specifies which table or list you want to scrape: 1 means the first table or list, 2 the second, and so on. Note that this is not in quotation marks.</li>
+            </ol>
+        </li>
+      </ul>
+
+      <h3>Step 1: Open up a new spreadsheet on Google Sheets</h3>
+      <p>Give your spreadsheet a title. For example, "L.A. County vaccinations by community."</p>
+
+      <h3>Step 2: Navigate to the website you want to scrape</h3>
+      <p>Open up a new tab on your browser and go to this link: <a href="http://publichealth.lacounty.gov/media/Coronavirus/locations.htm#vaccinated">http://publichealth.lacounty.gov/media/Coronavirus/locations.htm#vaccinated</a></p>
+      <p>You'll see that this page has the tables we've been posting to our L.A. County coronavirus tally.</p>
+      <p>The </p>
+
+      <h3>Step 3: Inspect the website's HTML code to find the table or list you want</h3>
+      <p>First, scroll down until you see the table titled "Percent Vaccinated by City/Community." This is the table we want to grab for this example.</p>
+      <p>Then, right click anywhere to bring up the menu and click "Inspect Element" as shown in the following screenshot:</p>
+      <img src="img/inspect-vax.png">
+
+      <p>This brings up the developer inspection window where we can inspect the HTML element for the table:</p>
+      <img src="img/inspect-vax-td.png">
+
+      <p>You will see the where tables are inserted into the web page. If you hover over where it says "table" in the inspection window, you should see the entire table highlighted like so:</p>
+      <img src="img/inspect-vax-highlight.png">
+
+      <h3>Step 4: Go back to Google Sheets and type in your formula</h3>
+      <p>Type <code>=IMPORTHTML</code></p>
+      <p>Then fill in function with the arguments or parameters: <code> =IMPORTHTML("http://publichealth.lacounty.gov/media/Coronavirus/locations.htm", "table", 3)</code></p>
+      <p>Press Enter.</p>
+      <img src="img/vax-table.png">
+      <p>Notice I used "3" for the index in the example above. That means I'm grabbing the third table in the webpage. You can play with the formula by changing the index number and see what table you pull up. </p>
+
+      <p>You can then upload a link to your spreadsheet in Datawrapper to create a live updating table or chart, like one below:
+      </p>
+      <iframe title="COVID-19 cases by city or community" aria-label="table" id="datawrapper-chart-swYT7" src="https://datawrapper.dwcdn.net/swYT7/4/" scrolling="no" frameborder="0" style="border: none;" width="600" height="1158"></iframe>
+
+      <p>Now, you try! Try to grab Ventura County's COVID-19 case counts by ZIP Code/area here: <a target="_blank" href="https://www.venturacountyrecovers.org/">https://www.venturacountyrecovers.org/</a></p></p>
+    </div>
+
+
+    <div id="import-xml">
+      <h2>Using the IMPORTXML function in Google Sheets</h2>
+      <p>Google Sheets has a built-in function called ImportXML which can be used to scrape publicly available structured data from webpages. ImportXML imports data from any of various structured data types including XML, HTML, CSV, TSV, and RSS and ATOM XML feeds.</p>
+      <p>Here is the syntax for using this function: <code>=IMPORTXML("url", "xpath_query")</code></p>
+      <ul>
+        <li>url - The URL of the page to examine, including protocol (e.g. http://). The value for url must either be enclosed in quotation marks or be a reference to a cell containing the appropriate text.</li>
+        <li>xpath_query - The XPath query to run on the structured data. For more information on XPath, see <a href"http://www.w3schools.com/xml/xpath_intro.asp">http://www.w3schools.com/xml/xpath_intro.asp</a> </li>
+      </ul>
+      <p>Common XPath queries include:</p>
+      <ul>
+        <li>//h1 – Scrapes all h1s</li>
+        <li>//title – Scrapes all titles</li>
+        <li>//meta[@name='description']/@content – Scrapes the meta description</li>
+        <li>//@href – Scrapes all links</li>
+        <li>//link[@rel=’canonical’]/@href – Scrapes any canonicals</li>
+        <li>//*[@itemtype]/@itemtype – Scrapes types of schema</li>
+        <li>//*[@hreflang] – Scrapes hreflang</li>
+      </ul>
+      <p>For this example, let's use the IMPORTXML function to create a table of COVID-19 cases by age groups in L.A. County</p>
+
+
+      <h3>Step 1: Navigate to the website you want to scrape</h3>
+      <p>Open up a new tab on your browser and go to this link: <a href="http://publichealth.lacounty.gov/media/Coronavirus/locations.htm#vaccinated">http://publichealth.lacounty.gov/media/Coronavirus/locations.htm#vaccinated</a></p>
+      <p>Again, you'll see that this page contains the tables we've been posting to our L.A. County coronavirus tally.</p>
+      <p>This time, lets say you're interested in creating a table that shows coronavirus case counts by 'Age Group' in L.A. County, which you can find in the top table below "Los Angeles County Case Summary." </p>
+      <p>Since you know that the age group categories remain constant, you're just interested in the latest case for those age groups.</p>
+
+      <h3>Step 2: Open up a new spreadsheet on Google Sheets</h3>
+      <p>Give your spreadsheet a title. For example, "L.A. County COVID-19 cases by age"</p>
+      <p>Create a table with with column headers and data you want to show, in this case the age groups the case counts </p>
+      <p>Once you're ready to populate the table with the numbers, go back to the LA County website with the data.</p>
+
+
+      <h3>Step 3: Get the XPath of the data you want to scrape </h3>
+      <p>Once at the website, scroll down until you see the section "Age Group (Los Angeles County Cases Only-excl LB and Pas)." Your first thought might be to use the ImportHTML function to grab the table with the ages, but then you realize you can't use it to grab subsets of a larger table, such as in this case. So, for this example, we'll use the ImportXML function to select data we want. To do that, you'll need to grab the XPath of the data you want.</p>
+      <p>To do that, you can right click on the entry of the data you want from the table. So in this case, I want to grab the number of cases for the age group "Ages 0 to 4." After right-clicking, click "Inspect Element" option, which will open up Google Dev's console. You'll see in the console that the HTML element containing the number of interest is highlighted in Blue. You'll want to right click on that blue highlight, which gives you a menu. Go to "Copy" then from there, select the "Copy XPath" option, as shown in the following screenshot:</p>
+      <img src="img/xpath_age_group_number.png">
+      
+      <h3>Step 4: Fill out Google's ImportXML function</h3>
+      <p>Once you've copied the XPath, go back to Google Sheets and fill out the ImportXML formula in the entry next to the "Ages 0 to 4" group.</p>
+      <p>So the formula should look like this: <code>=importxml("http://www.publichealth.lacounty.gov/media/Coronavirus/locations.htm#vaccinated", "//*[@id='content']/div[1]/div[3]/div/div/table/tbody[4]/tr[1]/td[2]")</code> </p>
+      <img src="img/gsheets_xpath_formula_age.png">
+
+
+      <h3>Step 5: Repeat for the other data you want</h3>
+      <p>You can repeat the steps to get the XPath for each of the case numbers you want. Or to save you some time, just copy the first XPath to the remaining entries since the XPath structure will look similar. You'll see that the only change is the "tr" element for each category. In other words, the Xpath for the age group "5 to 11" is: <code>"//*[@id='content']/div[1]/div[3]/div/div/table/tbody[4]/tr[2]/td[2]"</code> </p>. 
+      <p>For the age group "12 to 17" the XPath is: <code>"//*[@id='content']/div[1]/div[3]/div/div/table/tbody[4]/tr[3]/td[2]"</code></p>
+      <img src="img/gsheets_xpath_formula_age2.png">
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+
+  <title>Creating maps & charts in Datawrapper</title>
+  <link rel="stylesheet" href="css/main.css" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Lato&family=Noto+Serif:wght@700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+
+<div id="container" class="exercise">
+
+  <div id="exercise">
+
+    <h3><a href="gettingdata.html">Getting data (without much code)</a></h3>
+    
+    <div id="intro">
+      <h1>Creating maps & charts in Datawrapper!</h1>
+      <p>We're going to be using a slightly tweaked version of Datawrapper's own <a href="https://academy.datawrapper.de/category/74-bar-charts">tutorial series</a> to make a <a href="#barchart">bar chart</a>, <a href="#linechart">line chart</a>, and <a href="#map">map</a>.</p>
+    </div>
+
+    <div id="barchart">
+      <h2>Let's Make a Bar Chart</h2>
+      <p>Here's a bar chart of the states with the highest immigrant population (as of 2016).  We're going to make it from scratch.</p>
+       <iframe src="https://datawrapper.dwcdn.net/4MGk8/1/" scrolling="no" frameborder="0" allowtransparency="true" width="604" height="354"></iframe>
+
+      <table> 
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Immigrant Population</th>
+          </tr>
+        </thead>
+       <tbody> 
+        <tr><td>California</td><td>10677700</td></tr>
+        <tr><td>Texas</td><td>4729900</td></tr>
+        <tr><td>New York</td><td>4536100</td></tr>
+        <tr><td>Florida</td><td>4236500</td></tr>
+        <tr><td>New Jersey</td><td>2016100</td></tr>
+        <tr><td>Illinois</td><td>1783500</td></tr>
+        <tr><td>Massachusetts</td><td>1123900</td></tr>
+       </tbody> 
+      </table>
+
+      <p class="source">Source: <a href="https://www.migrationpolicy.org/programs/data-hub/charts/immigrant-population-state-1990-present?width=1000&height=850&iframe=true">Migration Policy Institute</a></p>
+
+      <h3>Step 1: Upload Data</h3>
+
+      <img src="img/barchart_1.gif">
+
+      <p>There are lots of ways to import data into Datawrapper, but we'll start with the easiest one – copy and paste!</p>
+      <img class="medium" src="img/barchart_1a.gif">
+
+      <p>Your dataset should be formatted like this: </p>
+
+      <ul> 
+       <li><strong>Descriptive&nbsp;labels in the first column as categories</strong>. <br> This will determine the label in front of each bar. </li> 
+       <li><strong>Corresponding values in the second column as categorical dimensions</strong>. <br> This will determine the length of each corresponding bar. </li>
+      </ul>
+
+
+     
+
+      <p>Note that the big numbers for immigration are intentionally without commas or extra formatting. <strong>Unformatted numbers are always best!</strong> </p>
+
+      <img src="img/barchart_2.gif">
+      <p>Copy the dataset into the upload field in Datawrapper. Then click "Proceed" and continue.</p>
+
+      <h3>Step 2: Check & Describe</h3>
+
+      <img src="img/barchart_3.gif">
+      <p>Make sure everything looks good here. Note that because I pasted in the header rows "Year" and "Number of Immigrants", I check the "First row as label" button. That will make sure that it doesn't think those fields are actual data!</p>
+
+      <p>If everything looks fine, then click "Proceed."</p>
+
+      <h3>Step 3: Visualize</h3>
+       <img src="img/barchart_4.gif">
+      <p>Datawrapper will try to guess what format your data should be in. Here, it's guessing a line chart (Cue discussion of line charts vs bar charts!) But I actually want a bar chart, so I'm going to select bar chart from the menu of chart types.</p>
+      <img src="img/barchart_5.gif">
+
+      <p>Better! Now we have lots of options for how to style and annotate this chart, in the refine, annotate, and design tabs.</p>
+      <img class="medium" src="img/barchart_6.gif">
+
+
+      <p>There are lots of things you can do in the Refine tab.</p>
+      <p>Sorting: Depending on the angle of your story, you may want to sort the bars.</p>
+      <p>Labeling: You can align the numbers left or right, display grid lines, change the number formatting, etc. </p>
+      <p>Appearance: You can change the color of the bars, make the bars thicker, add a separating line, or a background to the bars. </p>
+
+      <p>In this case, I'm going to give the bars a background grey and make them thicker and dark red, and also separate rows with dotted line. </p>
+      <img src="img/barchart_7.gif">
+
+
+      <p>Next we go to the Annotate tab.</p>
+      <p>Let's give the chart a title, description, and add the source of the data. If you have a URL to the data source, that's even better.</p>
+      <img src="img/barchart_8.gif">
+
+      <p>We're going to quickly pass by the Design tab, and go straight to Publish!</p>
+
+      <h3>Step 4: Publish & Embed</h3>
+      <p>The most important step of all: publishing our chart!</p>
+      <img class="medium" src="img/barchart_9.gif">
+
+      <p>Once you click Publish, you have the option of sharing, embedding, exporting or duplicating your chart.</p>
+      <img src="img/barchart_10.gif">
+
+      <p>And you're done! </p>
+
+      <p>Something to consider: California, Texas, New York and Florida are pretty populous states. Why might this be a problem for our visualization?  </p>
+
+      <p>Here's a hint: </p>
+      <img class="medium" src="img/heatmap.png">
+
+
+    </div>
+
+
+    <div id="linechart">
+      <h2>2: Let's Make a Line Chart</h2>
+      <p>We're going to recreate a line chart of backlogged immigration cases. The <a href="https://www.datawrapper.de/_/KIK4y/">original Datawrapper chart</a> was made by <a href="https://data.world/carlvlewis">Carl V. Lewis</a>, and data is from Syracuse University's <a href="http://trac.syr.edu/phptools/immigration/court_backlog/">TRAC reports</a>. I've pulled the data from the TRAC website and stuck it in <a target="_blank" href="https://docs.google.com/spreadsheets/d/1KZSBBzPsNDOSW5Rpt0JIWm-ZlmvLcNuDHVh5qufNcVc/edit#gid=0">this spreadsheet</a>. Here's <a href="https://cis.org/Report/Massive-Increase-Immigration-Court-Backlog">more context for the backlog</a>. </p>
+
+
+      <iframe src="https://datawrapper.dwcdn.net/Zu1pt/1/" scrolling="no" frameborder="0" allowtransparency="true" width="803" height="470"></iframe>
+
+      <h3>Step 1: Upload Data</h3>
+      <p>We'll follow the same steps as before, and start with uploading our data. This time rather than copying and pasting, we're going to link directly to a Google Spreadsheet. <p>
+      <img class="medium" src="img/linechart_1.gif">
+
+      <p>Paste in this URL: </p>
+      <p> <code>https://docs.google.com/spreadsheets/d/1KZSBBzPsNDOSW5Rpt0JIWm-ZlmvLcNuDHVh5qufNcVc/edit#gid=0</code> </p>
+      <p>If all goes well, it should give you some green checkmarks to indicate that there are no issues with the spreadsheet. Remember: the spreadsheet has to be public for this to work. </p>
+      <img src="img/linechart_2.gif">
+      
+
+
+      <h3>Step 2: Check & Describe</h3>
+      <p>Check again that everything looks good. If so, click "Proceed."</p>
+      <img src="img/linechart_3.gif">
+
+
+      <h3>Step 3: Visualize</h3>
+      <p>In this case, Datawrapper guessed correctedly that we wanted a line chart. </p>
+      <img src="img/linechart_4.gif">
+
+      <p>Let's first go to the Refine tab. Let's set the chart to begin at 0, by going to Custom Range and setting our minimum as 0 and maximum to 800,000. then since we don't need all of these tick marks, let's get rid of some by setting out Custom Ticks to 100,000 , 500,000 and 750,000.</p>
+      <img src="img/linechart_5.gif">
+
+      <p>I'm going to use the Customize lines section to change the line color to red, and the Customize symbol section to add little diamonds to the start and end of our line.</p>
+      <img  class="small" src="img/linechart_6.gif">
+
+      <p>Next the Annotate tab. Let's give our chart a title, description, source line, and a short note on when this data was collected,</p>
+      <img src="img/line-chart7.png">
+
+
+      <p>Next I'm going to use the Highlight range values section to add the years that Obama and Trump were in office, and give each section an annotation using the Text annotations section. Note that you can expand the controls for the annotations by clicking the double arrows buttons on the right.
+      </p>
+
+      <img class="small" src="img/line-chart8.png">
+      <img class="small" src="img/line-chart9.png">
+
+      <p>You're chart should look something like this: </p>
+
+      <img src="img/line-chart10.png">
+
+
+
+      <p>Publish & done!!</p>
+
+    </div>
+
+    <div id="extra-chart">
+      <h2>4: Now, you try! Chart it.</h2>
+
+      <p>Now you try on your own making a line chart with this data: </p>
+      <ul>
+        <li> <div><strong>New Permanent Residents</strong>: Annual Number of New Legal Permanent Residents by Country of Birth, Years 1999 to 2016. Data from the <a href="https://www.migrationpolicy.org/sites/default/files/datahub/MPI-Data-Hub_USInflowLPRsbyCOB_2016.xlsx">Migration Policy Institute</a>. </div>
+        <div><span><a href="data/charts/permanent_residents.csv" download>DOWNLOAD </a></span></div></li>
+
+      </ul>
+
+      <p>Hint: There are multiple categories in this dataset, so you'll want to make what's called a "multi-series" line chart. Also, you may have to "transpose" the data to get it into the shape you want!</p>
+     
+
+    </div>
+
+
+
+    <div id="map">
+      <h2>5: Let's Make a Map</h2>
+
+      <p>We're going to make a choropleth map of UV Exposure in the United States, with <a href="https://gis.cancer.gov/tools/uv-exposure/">data on ultraviolet radiation from the National Cancer Institute.</a></p>
+
+      <iframe src="https://datawrapper.dwcdn.net/RX7to/1/" scrolling="no" frameborder="0" allowtransparency="true" width="510" height="600"></iframe>
+
+      
+
+      <h3>Step 1: Select your map</h3>
+
+      <p>Datawrapper gives you several options for types of maps. A choroplth map is a pretty common map form that is good for showing how states or counties compare to each other on some metric. </p>
+
+      <p>Select Choropleth map.</p>
+      <img  src="img/map1.png">
+
+      <p>Then search for USA counties (2018). Once you found it, click Next. </p>
+      <img src="img/map2.png">
+
+      <h3>Step 2: Add your data</h3>
+      <p>We've done copying and pasting and also imported our data from a Google Spreadsheet, so this time we're going to try uploading a CSV file. Make sure <a href="data/maps/uv-country.csv" download>you have this file called <strong>uv-county.csv</strong> downloaded to your computer</a> before going to the next step.</p>
+
+      <p>Click on the "... or import your dataset" button on the bottom left, the Start Import. The popup warns you that in order to make a county choropleth map, we need an ID for each county – called the FIPS Code. </p>
+      <img class="medium" src="img/map_3.gif">
+
+      <p>Click on "Alternatively, click here to upload a CSV-file." and find the <strong>uv-county.csv</strong>  file you just downloaded (it should be somewhere on your Desktop or in your Downloads folder.</p>
+
+      <p>Then you have to tell Datawrapper which column has this magical ID, the FIPS Code. In our case it is a column called COUNTY_FIPS, and Datawrapper should automatically recognize that.</p>
+      <img class="medium" src="img/map_4.gif">
+
+      <p>Looks like there are some FIPs codes that Datawrapper doesn't recognize. Notice what it's showing? The states of Virginia and South Dakota. But both are whole states, and we are just mapping counties, so we're going to ignore this. Note that in your cases, if you have a lot of unmatched FIPS codes, it might be a problem worth checking out further.</p>
+       <img class="medium" src="img/map5.png">
+
+       <p>Now you're going to select the column of data you want to map! In this case, we're mapping the average daily UV exposure of each county (in in watt hours per square meter), so go ahead and select the column <strong>UV_ wh/m2</strong>.</p>
+       <img class="medium" src="img/map_6.gif">
+
+      <h3>Step 3: Visualize</h3>
+
+      <p>We should have a pretty blue map! But cool blue shades doesn't seem like the appropriate color for a map on cancer-causing UV rays, so let's adjust. We're also going to play with the color bucket cutoffs so that we can better distinguish high and low exposure counties. </p>
+
+      <img src="img/map7.png">
+
+      <p>I can either select from a dropdown of pre-selected color ranges, or I can make my own. Since there isn't one I really like here, I'm going to create my own red-yellow color palette.</p>
+
+      <img src="img/map9.png">
+
+      <p>You can either keep fiddling with the colors until you find a selection you like, or you can enlist the help of smarter people who have thought a lot about color so that you don't have to. One of my favorite color picking tools is <a href="http://colorbrewer2.org/">Color Brewer</a>, which gives you specifically designed color sequences for maps. Another tool that helps with selecting colors on a gradient is <a href="http://www.0to255.com/">0to255.com</a>. </p>
+
+      <a href="http://colorbrewer2.org/"><img class="medium" src="img/map10.png"></a>
+      <p>Once you select your color swatch of choice, just hit the EXPORT tab and copy the HEX codes in the JS array</p>
+      <a href="http://colorbrewer2.org/"><img class="medium" src="img/map10-2.png"></a>
+
+      <p>Then go back to Datawrapper and click on the Import colors button</p>
+      <img class="small" src="img/import-codes.png">
+
+      <p>Then you'll see this pop up. Paste the HEX codes and then remove the brackets and quotes around the HEX codes, like so:</p>
+      <img class="small" src="img/map9a.png">
+
+      <p>Now that you have your palette ready, notice how the default setting under Type is a linear gradient. In this example, we'll want to change it to 'steps' (more on this another time).</p>
+
+      <img class="small" src="img/map9c.png">
+
+      <p>The default setting is 5 Linear steps, so you'll want to change it to Rounded values.</p>
+      <img class="small" src="img/rounded-values.png">
+
+      <p>Once you have that, adjust the settings for the map Legend. In this example, I'm going to put 'UV Exposure' as my Caption.</p>
+      <img class="small" src="img/map-show-legend.png">
+      <p>Then, to make your map zoomable, scroll down to Appearance and turn that setting on.</p>
+      <img class="small" src="img/appearance.png">
+
+      <p>Next in the Annotate tab, let's give our map a title description, and data source + link.</p>
+      <img src="img/map15.png">
+
+      <p>Everyone likes tooltips, so let's give our map some! Scroll down to the Tooltips section and click on Customize tooltips. Now you have an interface where you can combine words plus any field in your data. Below is what the default settings are.</p>
+      <img class="small" src="img/map11a.png">
+      
+      <p>For the title, I'm going to select county_name, add a comma and space, then select state_abr. For the body, I'm going to write UV Exposure: and then select UV_wh_m2.</p>
+      <img class="small" src="img/map11b.png">
+
+      <p>Now we have tooltips!</p>
+
+      <img class="small" src="img/tooltip.png">
+
+
+      <h3>Step 4: Publish & Embed</h3>
+
+      <p>If everything looks good, hit that Publish button!</p>
+
+    </div>
+
+
+    <div id="extra-map">
+      <h2>6: Now, you try! Map it.</h2>
+
+      <p>Now you try on your own making a symbol map with this data: </p>
+      <ul>
+       <li>
+        <div><strong>Oil Spills</strong>: The location at dates of oil spills in the United States from 2013-2017. Data from the <a href="https://www.phmsa.dot.gov/data-and-statistics/pipeline/pipeline-incident-flagged-files"> Pipeline and Hazardous Materials Safety Administration</a>. </div>
+        <div><span><a href="data/maps/oil_spills.csv" download>DOWNLOAD </a></span> </div></li>
+
+      </ul>
+
+      <p>Hint: Take a look at the data first and try to get a feel for where these incidents are located. Figure out what region you want your map to show (Just Florida? The entire world? The USA?) Then also figure out what columns in the dataset have the location of each incident (you'll need either addresses or Latitude & Longitude.) </p> 
+     
+
+    </div>
+
+    <div id="datasets">
+      <h2>7: Now, you try! Visualize it. </h2>
+
+      <p>We've successfully made a bar chart, line chart and choropleth map! Now, why don't you take one of the following datasets (or one of your own), and use Datawrapper to make a new chart or map. </p>
+
+      <p>Here are a few sample datasets you can play with. </p>
+
+      <ul>
+
+        <li>
+          <div><strong>Health & Wealth of Nations</strong>: The life expectancy, income and population of countries/regions around the globe. Data from <a href="https://www.gapminder.org/data/">Gapminder</a>. </div>
+
+
+          <div><span><a href="data/charts/health_wealth.csv" download>DOWNLOAD </a></span></div>
+
+        </li>
+        
+
+        <li>
+          <div><strong>Temperature</strong>: Daily temperature for two towns in the United States: Key West, Florida and Barrow, Alaska.</div>  
+          <div><span><a href="data/charts/temperature.csv" download>DOWNLOAD </a></span></div></li>
+        
+        
+        
+      
+
+      </ul>
+
+      <p>If none of these appeal to you, you can browse through the Datawrapper <a href="https://river.datawrapper.de/">"River"</a> to see how other people have used Datawrapper to make their own charts. You can download the data straight from Datawrapper. If you do reuse it, make sure you give the proper attribution.</p>
+
+
+      <p>Remember that Datawrapper has <a href="https://academy.datawrapper.de/">many more tutorials</a> on all different types of charts, from <a href="https://academy.datawrapper.de/article/17-how-to-create-a-stacked-bar-chart">stacked bar charts</a> to <a href="https://academy.datawrapper.de/article/106-how-to-create-an-area-chart">area charts</a> to <a href="https://academy.datawrapper.de/category/79-scatterplots">scatterplots</a>. </p>
+
+      <a href="https://academy.datawrapper.de/"><img class="medium" src="img/tutorials.gif"></a>
+
+     
+
+      <a href="https://river.datawrapper.de/"><img class="medium" src="img/river.gif"></a>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+  </body>
+</html>
